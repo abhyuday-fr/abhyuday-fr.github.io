@@ -89,17 +89,23 @@
     <div class="wrap">
       
 
-
+<div id="reading-progress"></div>
 
 <article>
   <header class="post-header">
+    
+      <p class="post-header__meta">
+        <span>05 Aug 2026</span>
+        <span>3 min read</span>
+        
+      </p>
     
     <h1>Which Thread on Which CPU Core</h1>
     <p class="post-header__desc">Let&#39;s verify how the Linux scheduler assigns threads to CPU cores using C&#43;&#43;.</p>
   </header>
 
-   <div
-    class="post-layout">
+  
+  <div class="post-layout post-layout--with-toc">
     <div class="content">
       <p>Let&rsquo;s suppose your computer has <strong>4 CPU cores</strong> and you decide to create <strong>2 threads</strong>.</p>
 <p>Will they be created on the <strong>same core</strong> or on <strong>different cores</strong>?</p>
@@ -205,25 +211,52 @@
 
     </div>
     
-    </div>
+      <aside class="toc" aria-label="Table of contents">
+  <p class="toc__title">On this page</p>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#finding-the-number-of-cpu-cores">Finding the Number of CPU Cores</a></li>
+    <li><a href="#finding-which-core-a-thread-is-running-on">Finding Which Core a Thread Is Running On</a></li>
+    <li><a href="#creating-two-threads">Creating Two Threads</a></li>
+    <li><a href="#your-turn">Your Turn</a></li>
+  </ul>
+</nav>
+</aside>
 
     
+  </div>
+
+  
     <ul class="tag-list" style="margin-top: 2rem;">
       
-      <li><a class="tag-pill" href="/%20/tags/cpp/">cpp</a></li>
+        <li><a class="tag-pill" href="/tags/cpp/">cpp</a></li>
       
-      <li><a class="tag-pill" href="/%20/tags/multithreading/">multithreading</a></li>
+        <li><a class="tag-pill" href="/tags/multithreading/">multithreading</a></li>
       
-      <li><a class="tag-pill" href="/%20/tags/linux/">linux</a></li>
+        <li><a class="tag-pill" href="/tags/linux/">linux</a></li>
       
-      <li><a class="tag-pill" href="/%20/tags/operating-systems/">operating-systems</a></li>
+        <li><a class="tag-pill" href="/tags/operating-systems/">operating-systems</a></li>
       
-      <li><a class="tag-pill" href="/%20/tags/scheduler/">scheduler</a></li>
+        <li><a class="tag-pill" href="/tags/scheduler/">scheduler</a></li>
       
     </ul>
+  
+
+  
+  <footer class="post-footer">
+    
+    
     
 
     
+      <script src="https://giscus.app/client.js" data-repo="abhyuday-fr/abhyuday-fr.github.io" data-repo-id="R_kgDOTu5T_w"
+  data-category="General" data-category-id="DIC_kwDOTu5T_84DCvLA" data-mapping="pathname" data-strict="0"
+  data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme"
+  data-lang="en" crossorigin="anonymous" async>
+  </script>
+    
+  </footer>
+  
 </article>
 
     </div>
