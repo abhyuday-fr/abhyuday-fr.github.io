@@ -1,74 +1,20 @@
-/* Catppuccin Macchiato for PaperMod */
+/* Force Catppuccin Macchiato colors globally */
 :root, :root.dark, :root[class="dark"] {
-    /* Core PaperMod variables */
-    --theme: #24273a;         /* Base */
-    --entry: #363a4f;         /* Surface0 — post cards */
-    --primary: #cad3f5;       /* Text */
-    --secondary: #b8c0e0;     /* Subtext1 — slightly brighter than Subtext0 for readability */
-    --tertiary: #494d64;      /* Surface1 — used for hover/borders, matches --border */
-    --content: #cad3f5;       /* Text — body content */
-    --code-bg: #1e2030;       /* Mantle */
-    --hljs-bg: #1e2030;       /* Mantle */
-    --border: #494d64;        /* Surface1 */
-
-    /* Extras PaperMod also reads in some themes/forks */
-    --card-bg: #363a4f;       /* Surface0 */
-    --card-height: auto;
-    --nav-width: 1024px;
-    --main-width: 720px;
+    --theme: #24273a;     /* Base: Background */
+    --entry: #363a4f;     /* Surface0: Post cards */
+    --primary: #cad3f5;   /* Text: Main body text */
+    --secondary: #a5adcb; /* Subtext0: Muted text/dates */
+    --tertiary: #6e738d;  /* Overlay0: Borders/Dividers */
+    --highlight: #494d64; /* Surface1: Hover states */
+    --hljs-bg: #1e2030;   /* Mantle: Code block background */
+    --code-bg: #1e2030;   /* Mantle: Inline code background */
+    --border: #494d64;    /* Surface1: Global borders */
 }
 
-/* Selection highlight */
-::selection {
-    background: #5b6078;      /* Surface2 */
-    color: #cad3f5;
-}
-
-/* Links */
+/* Optional: Make links and accents pop using Macchiato Blue & Mauve */
 a {
-    color: #8aadf4;            /* Blue */
-    text-decoration-color: #6e738d; /* Overlay0 */
+    color: #8aadf4;
 }
 a:hover {
-    color: #c6a0f6;            /* Mauve */
-}
-
-/* Inline code */
-code {
-    color: #f5a97f;            /* Peach */
-    background: #1e2030;       /* Mantle */
-}
-
-/* Blockquotes */
-blockquote {
-    border-left: 3px solid #8aadf4; /* Blue */
-    color: #b8c0e0;                  /* Subtext1 */
-}
-
-/* Post card hover */
-.post-entry:hover,
-article:hover {
-    background: #494d64;       /* Surface1 */
-}
-
-/* Tags/badges */
-.post-tags a,
-.tag-links a {
-    color: #a6da95;            /* Green */
-    border: 1px solid #494d64; /* Surface1 */
-}
-.post-tags a:hover {
-    background: #a6da95;       /* Green */
-    color: #24273a;             /* Base — for contrast on hover */
-}
-
-/* Headings — subtle warmth via Rosewater/Flamingo for h1/h2 if you want variety */
-h1, h2 {
-    color: #f4dbd6;             /* Rosewater */
-}
-
-/* Search / highlight matches (if using PaperMod's search) */
-mark {
-    background: #eed49f;       /* Yellow */
-    color: #24273a;             /* Base */
+    color: #c6a0f6;
 }
