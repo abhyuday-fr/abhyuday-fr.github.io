@@ -2,7 +2,7 @@
 date = '2026-08-05T21:28:46+05:30'
 draft = false
 title = 'Which Thread on Which CPU Core'
-description = 'Let's verify how the Linux scheduler assigns threads to CPU cores using C++.'
+description = "Let's verify how the Linux scheduler assigns threads to CPU cores using C++."
 tags = ['cpp', 'multithreading', 'linux', 'operating-systems', 'scheduler']
 categories = ['Systems Programming']
 +++
