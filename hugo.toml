@@ -3,4 +3,4 @@ languageCode = 'en-us'
 title = 'Abhyuday Pundir'
 theme = 'PaperMod'
 [params]
-ShowComments = true
+comments = true
