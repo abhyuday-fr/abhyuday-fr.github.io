@@ -1,0 +1,18 @@
+{{ define "main" }}
+<header class="post-header" style="border-bottom: 1px solid var(--surface0); padding-bottom: 1.2rem;">
+  <p class="post-header__meta"><span>{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}</span></p>
+  <h1>{{ .Title }}</h1>
+  {{ with .Content }}<div class="post-header__desc">{{ . }}</div>{{ end }}
+</header>
+
+{{ $paginator := .Paginate .Pages }}
+<ul class="post-list">
+  {{ range $i, $p := $paginator.Pages }}
+    {{ partial "post-card.html" (dict "page" $p "index" $i) }}
+  {{ else }}
+    <li style="color: var(--overlay1); font-family: 'IBM Plex Mono', monospace;">Nothing here yet.</li>
+  {{ end }}
+</ul>
+
+{{ partial "pagination.html" $paginator }}
+{{ end }}

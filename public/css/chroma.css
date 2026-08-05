@@ -1,0 +1,69 @@
+/* Chroma syntax highlighting, mapped onto the Catppuccin variables
+   defined in main.css so it follows the Macchiato/Latte toggle. */
+
+.chroma { color: var(--text); background: transparent; }
+
+.chroma .lntable { border-collapse: collapse; }
+.chroma .lntd { vertical-align: top; padding: 0; border: none; }
+.chroma .ln, .chroma .lnt { color: var(--overlay0); }
+.chroma .hl { background: color-mix(in srgb, var(--surface1) 60%, transparent); display: block; }
+
+/* Comments */
+.chroma .c, .chroma .c1, .chroma .ch, .chroma .cm,
+.chroma .cp, .chroma .cpf, .chroma .cs {
+  color: var(--overlay1);
+  font-style: italic;
+}
+
+/* Keywords */
+.chroma .k, .chroma .kd, .chroma .kn, .chroma .kp,
+.chroma .kr, .chroma .kt, .chroma .kv {
+  color: var(--mauve);
+}
+.chroma .kc { color: var(--peach); }
+
+/* Names */
+.chroma .n { color: var(--text); }
+.chroma .na { color: var(--yellow); }
+.chroma .nb, .chroma .bp { color: var(--blue); }
+.chroma .nc { color: var(--yellow); }
+.chroma .no { color: var(--peach); }
+.chroma .nd { color: var(--pink); }
+.chroma .ni { color: var(--teal); }
+.chroma .ne { color: var(--red); }
+.chroma .nf, .chroma .fm { color: var(--blue); }
+.chroma .nl { color: var(--sapphire); }
+.chroma .nn { color: var(--yellow); }
+.chroma .nt { color: var(--mauve); }
+.chroma .nv, .chroma .vc, .chroma .vg, .chroma .vi { color: var(--flamingo); }
+.chroma .nx { color: var(--text); }
+
+/* Strings */
+.chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl,
+.chroma .sd, .chroma .s2, .chroma .se, .chroma .sh, .chroma .si,
+.chroma .sx, .chroma .sr, .chroma .s1, .chroma .ss {
+  color: var(--green);
+}
+
+/* Numbers */
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh,
+.chroma .mi, .chroma .il, .chroma .mo {
+  color: var(--peach);
+}
+
+/* Operators & punctuation */
+.chroma .o { color: var(--sky); }
+.chroma .ow { color: var(--mauve); }
+.chroma .p { color: var(--overlay2); }
+
+/* Generic diff / error */
+.chroma .gd { color: var(--red); background: color-mix(in srgb, var(--red) 12%, transparent); }
+.chroma .gi { color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); }
+.chroma .gh { color: var(--blue); font-weight: 600; }
+.chroma .gu { color: var(--mauve); font-weight: 600; }
+.chroma .ge { font-style: italic; }
+.chroma .gs { font-weight: 600; }
+.chroma .gp { color: var(--overlay1); }
+.chroma .gr, .chroma .err { color: var(--red); }
+.chroma .g { color: var(--text); }
+.chroma .w { color: var(--overlay0); }

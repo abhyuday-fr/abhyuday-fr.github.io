@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="intro">
+  <p class="intro__eyebrow">visitor@{{ .Site.Params.prompt.host | default "blog" }} $ cat about.txt<span class="cursor">&nbsp;</span></p>
+  <h1>{{ .Site.Params.tagline | default .Site.Title }}</h1>
+  {{ with .Site.Params.description }}<p>{{ . }}</p>{{ end }}
+</section>
+
+{{ $sectionPages := where .Site.RegularPages "Type" "posts" }}
+{{ if eq (len $sectionPages) 0 }}{{ $sectionPages = .Site.RegularPages }}{{ end }}
+{{ $paginator := .Paginate $sectionPages }}
+
+<p class="section-label">Recent posts</p>
+<ul class="post-list">
+  {{ range $i, $p := $paginator.Pages }}
+    {{ partial "post-card.html" (dict "page" $p "index" $i) }}
+  {{ else }}
+    <li style="color: var(--overlay1); font-family: 'IBM Plex Mono', monospace;">No posts yet — create one with <code>hugo new posts/my-first-post.md</code>.</li>
+  {{ end }}
+</ul>
+
+{{ partial "pagination.html" $paginator }}
+{{ end }}

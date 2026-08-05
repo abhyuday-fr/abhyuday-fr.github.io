@@ -1,21 +1,23 @@
 baseURL = 'https://abhyuday-fr.github.io/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'Abhyuday Pundir'
-theme = 'terminal'
-
-paginate = 5
-
-[markup.highlight]
-noClasses = false
+theme = 'hugo-macchiato'
 
 [params]
-  # Tell the theme where your content lives
-  contentTypeName = "posts"
-  
-  # The signature orange Terminal color is the default, but you can change it
-  # Options: orange, blue, red, green, pink
-  themeColor = "orange"
-  
-  showMenuItems = 2
-  fullWidthTheme = false
-  centerTheme = false
+  comments = true
+
+# Top Navigation Menu
+[[menu.main]]
+  name = "Multithreading"
+  url = "/multithreading/"
+  weight = 1
+
+[[menu.main]]
+  name = "Networking"
+  url = "/networking/"
+  weight = 2
+
+[[menu.main]]
+  name = "Memory Allocation"
+  url = "/memory-allocation/"
+  weight = 3

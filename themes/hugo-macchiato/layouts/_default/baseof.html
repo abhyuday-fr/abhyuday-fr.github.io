@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}" data-theme="macchiato">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <a href="#main" class="visually-hidden">Skip to content</a>
+  {{ partial "header.html" . }}
+  <main id="main" class="site-main">
+    <div class="wrap{{ if .Site.Params.wideLayout }} wrap--wide{{ end }}">
+      {{ block "main" . }}{{ end }}
+    </div>
+  </main>
+  {{ partial "footer.html" . }}
+  <script src="{{ "js/main.js" | relURL }}" defer></script>
+</body>
+</html>

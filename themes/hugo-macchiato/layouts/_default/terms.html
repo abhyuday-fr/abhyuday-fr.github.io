@@ -1,0 +1,10 @@
+{{ define "main" }}
+<header class="post-header" style="border-bottom: 1px solid var(--surface0); padding-bottom: 1.2rem;">
+  <h1>{{ .Title }}</h1>
+</header>
+<ul class="tag-list" style="margin-top: 1.5rem;">
+  {{ range .Pages }}
+    <li><a class="tag-pill" href="{{ .RelPermalink }}">{{ .Title }} <span style="color: var(--overlay0);">({{ len .Pages }})</span></a></li>
+  {{ end }}
+</ul>
+{{ end }}

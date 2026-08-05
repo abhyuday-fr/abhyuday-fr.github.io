@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us" data-theme="macchiato">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#24273a">
+<title>Which Thread on Which CPU Core · Abhyuday Pundir</title>
+<meta name="description" content="Let&#39;s verify how the Linux scheduler assigns threads to CPU cores using C&#43;&#43;.">
+
+
+
+<meta property="og:title" content="Which Thread on Which CPU Core">
+<meta property="og:description" content="Let&#39;s verify how the Linux scheduler assigns threads to CPU cores using C&#43;&#43;.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/multithreading/which-thread-on-which-cpu-core/">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="canonical" href="http://localhost:1313/multithreading/which-thread-on-which-cpu-core/">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/chroma.css">
+
+
+
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("macchiato-theme");
+      var theme = saved === "latte" ? "latte" : "macchiato";
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script>
+
+</head>
+<body>
+  <a href="#main" class="visually-hidden">Skip to content</a>
+  
+
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a href="/%20/" class="brand" aria-label="Abhyuday Pundir — home">
+      <span class="brand__user">abby</span><span class="brand__at">@</span><span class="brand__host">blog</span><span class="brand__sep">:</span><span class="brand__path">~</span><span
+        class="brand__sep">$</span>
+      <span class="brand__cursor">&nbsp;</span>
+    </a>
+
+    <div style="display:flex; align-items:center; gap:0.6rem;">
+      <nav id="site-nav" class="nav" aria-label="Primary">
+        
+        <a href="/multithreading/" >Multithreading</a>
+        
+        <a href="/networking/" >Networking</a>
+        
+        <a href="/memory-allocation/" >Memory Allocation</a>
+        
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 1020.354 15.354z" />
+        </svg>
+      </button>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+  <main id="main" class="site-main">
+    <div class="wrap">
+      
+
+
+
+<article>
+  <header class="post-header">
+    
+    <h1>Which Thread on Which CPU Core</h1>
+    <p class="post-header__desc">Let&#39;s verify how the Linux scheduler assigns threads to CPU cores using C&#43;&#43;.</p>
+  </header>
+
+  
+  <div class="post-layout">
+    <div class="content">
+      <p>Let&rsquo;s suppose your computer has <strong>4 CPU cores</strong> and you decide to create <strong>2 threads</strong>.</p>
+<p>Will they be created on the <strong>same core</strong> or on <strong>different cores</strong>?</p>
+<p>It sounds like a simple question, and you might already know the answer.</p>
+<p>But how do we actually <strong>verify</strong> that answer with code?</p>
+<h2 id="finding-the-number-of-cpu-cores">Finding the Number of CPU Cores</h2>
+<p>C++ provides <code>std::thread::hardware_concurrency()</code>, which returns the number of hardware threads (logical CPUs) available to your program.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// num-of-cores.cc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;This system&#39;s CPU has &#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">::</span>hardware_concurrency()
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; cores</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Compile and run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>g++ num-of-cores.cc -std<span style="color:#f92672">=</span>c++20 -pthread
+</span></span><span style="display:flex;"><span>./a.out
+</span></span></code></pre></div><p>The output on my machine looks like this:</p>
+<p><img src="https://blogger.googleusercontent.com/img/a/AVvXsEgQBSkVCxD1bga3to8AgIn8z8ORM4mlYBTcgbKQlYygKCqjnbO0saNXMff02iB9kwhO69xT6X5VyBCdJxYuT47SpvG0-q0EJNpaFaXuhbXOBX5foiHSFx1azzg9OTcH2z8ReG0NKQO3N8Mpp-dI2hzZG8lbtyH5ZGuX0lhuKd29oWr6TH6bzXCV5YiYYXs" alt="Number of CPU cores"></p>
+<blockquote>
+<p>My machine reports <strong>12 logical cores</strong>.</p>
+</blockquote>
+<hr>
+<h2 id="finding-which-core-a-thread-is-running-on">Finding Which Core a Thread Is Running On</h2>
+<p>Knowing how many CPU cores your machine has is nice, but the more interesting question is:</p>
+<p><strong>Which core is this thread running on?</strong></p>
+<p>One of the easiest ways on Linux is to use the <code>&lt;sched.h&gt;</code> header and call <code>sched_getcpu()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// this-core.cc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sched.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;This thread is running on core &#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;&lt;</span> sched_getcpu()
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Compile and run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>g++ this-core.cc -std<span style="color:#f92672">=</span>c++20
+</span></span><span style="display:flex;"><span>./a.out
+</span></span></code></pre></div><p>On my machine, I got:</p>
+<p><img src="https://blogger.googleusercontent.com/img/a/AVvXsEiorCN_o3_z7S0JBocXcBdi_MMhzdyBKzaNt1kAOEjDWjUbL7SFtvhOJTWLaaeHsDQQ8e6-Ke88MGynMnHrHj-RKrpgqX7Jj6lHReYv2kCYmIdVE3HvpCWM-zhrhn6TvWUnFDwAisu-PscaFMG79MEdv26klZ7dF_f_V4hbkKq2gly8-m9OoJfnv33cqgQ" alt="Current CPU core"></p>
+<hr>
+<p>You probably already know what&rsquo;s coming next.</p>
+<p>Let&rsquo;s create multiple threads and see which CPU cores they actually get assigned to.</p>
+<h2 id="creating-two-threads">Creating Two Threads</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// which-core.cc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sched.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>mutex mtx;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The mutex keeps our output readable.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Without it, multiple threads may print at the same time.
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">tell_core</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>lock_guard<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> lock(mtx);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Thread id: &#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>get_id()
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; got core &#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;&lt;</span> sched_getcpu()
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>microseconds(<span style="color:#ae81ff">300</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(tell_core);
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(tell_core);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    t1.join();
+</span></span><span style="display:flex;"><span>    t2.join();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Compile and run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>g++ which-core.cc -std<span style="color:#f92672">=</span>c++20 -pthread
+</span></span><span style="display:flex;"><span>./a.out
+</span></span></code></pre></div><p>The output on my machine:</p>
+<p><img src="https://blogger.googleusercontent.com/img/a/AVvXsEg9hxkyvP0iHcNk8DcppT6CGH3mYPyWZu2gv5CmxPj0JTprmOKA36dcTG5817Qniqv8QIQeS-fuZYPoto47c9yW1nW9rp3kKw-GDvAJ7AgQ0As4lJnq9RKNIMEKqBxQREoC5ulltHZIcLqC43mqn9QSZdj6JMu66wSMMtSUVDB3N-GYkTndBNV01pWUAco" alt="Two threads on CPU cores"></p>
+<p>Notice that the two threads may be running on different CPU cores.</p>
+<p>If you execute the program multiple times, you&rsquo;ll likely notice that the assigned cores change from one run to another. That&rsquo;s because <strong>the operating system&rsquo;s scheduler</strong> decides where each thread runs, and it may even migrate a thread from one CPU core to another while the program is executing.</p>
+<hr>
+<h2 id="your-turn">Your Turn</h2>
+<p>Now it&rsquo;s your turn to experiment.</p>
+<p>Instead of creating just two threads, create a <strong>vector of threads</strong> (or even better, a small thread pool) and try these three cases:</p>
+<ol>
+<li><strong>Fewer threads than the number of CPU cores</strong></li>
+<li><strong>Exactly as many threads as CPU cores</strong></li>
+<li><strong>More threads than the number of CPU cores</strong></li>
+</ol>
+<p>Run the program several times and observe how your operating system schedules the threads.</p>
+<p>I&rsquo;d <strong>love</strong> to see your solutions.</p>
+<p>If you get stuck, try searching the internet for answers. You&rsquo;ll probably discover even more interesting things along the way. (That&rsquo;s how many of us learn)</p>
+<p>And of course, you&rsquo;re always welcome to ask questions here.</p>
+<p>Hope you had a great time reading this :)</p>
+
+    </div>
+    
+  </div>
+
+  
+    <ul class="tag-list" style="margin-top: 2rem;">
+      
+        <li><a class="tag-pill" href="/tags/cpp/">cpp</a></li>
+      
+        <li><a class="tag-pill" href="/tags/multithreading/">multithreading</a></li>
+      
+        <li><a class="tag-pill" href="/tags/linux/">linux</a></li>
+      
+        <li><a class="tag-pill" href="/tags/operating-systems/">operating-systems</a></li>
+      
+        <li><a class="tag-pill" href="/tags/scheduler/">scheduler</a></li>
+      
+    </ul>
+  
+
+  
+</article>
+
+    </div>
+  </main>
+  <footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <span>&copy; 2026 Abhyuday Pundir. Built with <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/abhyuday-fr/hugo-macchiato" target="_blank" rel="noopener">Macchiato</a>.</span>
+    <ul class="footer-links">
+      
+      
+      <li><a href="/index.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>
