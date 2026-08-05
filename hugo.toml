@@ -1,6 +1,21 @@
 baseURL = 'https://abhyuday-fr.github.io/'
 languageCode = 'en-us'
 title = 'Abhyuday Pundir'
-theme = 'PaperMod'
+theme = 'terminal'
+
+paginate = 5
+
+[markup.highlight]
+noClasses = false
+
 [params]
-comments = true
+  # Tell the theme where your content lives
+  contentTypeName = "posts"
+  
+  # The signature orange Terminal color is the default, but you can change it
+  # Options: orange, blue, red, green, pink
+  themeColor = "orange"
+  
+  showMenuItems = 2
+  fullWidthTheme = false
+  centerTheme = false
