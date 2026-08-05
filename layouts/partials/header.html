@@ -3,7 +3,7 @@
 {{ $path := .Site.Params.prompt.path | default "~" }}
 <header class="site-header">
   <div class="wrap{{ if .Site.Params.wideLayout }} wrap--wide{{ end }} site-header__inner">
-    <a href="{{ " /" | relLangURL }}" class="brand" aria-label="{{ .Site.Title }} — home">
+    <a href="{{ "/" | relLangURL }}" class="brand" aria-label="{{ .Site.Title }} — home">
       <span class="brand__user">{{ $user }}</span><span class="brand__at">@</span><span class="brand__host">{{ $host
         }}</span><span class="brand__sep">:</span><span class="brand__path">{{ $path }}</span><span
         class="brand__sep">$</span>
