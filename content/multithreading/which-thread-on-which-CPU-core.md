@@ -51,7 +51,7 @@ The output on my machine looks like this:
 
 Knowing how many CPU cores your machine has is nice, but the more interesting question is:
 
-> **Which core is this thread running on?**
+**Which core is this thread running on?**
 
 One of the easiest ways on Linux is to use the `<sched.h>` header and call `sched_getcpu()`.
 
@@ -139,7 +139,7 @@ If you execute the program multiple times, you'll likely notice that the assigne
 
 ---
 
-## Your Turn 🚀
+## Your Turn
 
 Now it's your turn to experiment.
 
@@ -151,17 +151,10 @@ Instead of creating just two threads, create a **vector of threads** (or even be
 
 Run the program several times and observe how your operating system schedules the threads.
 
-Some questions to think about:
-
-- Does every thread get its own CPU core?
-- What happens when there are more threads than cores?
-- Do the same threads always run on the same cores?
-- Can a thread move from one core to another?
-
 I'd **love** to see your solutions.
 
-If you get stuck, try searching the internet for answers—you'll probably discover even more interesting things along the way. (That's how many of us learn!)
+If you get stuck, try searching the internet for answers. You'll probably discover even more interesting things along the way. (That's how many of us learn)
 
 And of course, you're always welcome to ask questions here.
 
-Hope you had a great time reading this. :)
+Hope you had a great time reading this :)
