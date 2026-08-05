@@ -21,3 +21,16 @@ theme = 'hugo-macchiato'
   name = "Memory Allocation"
   url = "/memory-allocation/"
   weight = 3
+
+  [params.giscus]
+  repo = "abhyuday-fr/abhyuday-fr.github.io"
+  repoId = "R_kgDOTu5T_w"
+  category = "General"
+  categoryId = "DIC_kwDOTu5T_84DCvLA"
+  mapping = "pathname"
+  strict = "0"
+  reactionsEnabled = "1"
+  emitMetadata = "0"
+  inputPosition = "bottom"
+  theme = "preferred_color_scheme"
+  lang = "en"
