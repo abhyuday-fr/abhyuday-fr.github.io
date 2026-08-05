@@ -6,7 +6,6 @@ title = 'Which Thread on Which CPU Core'
 description = "Let's verify how the Linux scheduler assigns threads to CPU cores using C++."
 tags = ['cpp', 'multithreading', 'linux', 'operating-systems', 'scheduler']
 categories = ['Systems Programming']
-type = 'posts'
 +++
 
 Let's suppose your computer has **4 CPU cores** and you decide to create **2 threads**.
