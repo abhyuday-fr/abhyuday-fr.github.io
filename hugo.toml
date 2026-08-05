@@ -1,0 +1,4 @@
+baseURL = 'https://abhyuday-fr.github.io/'
+languageCode = 'en-us'
+title = 'Abhyuday Pundir'
+theme = 'PaperMod'
