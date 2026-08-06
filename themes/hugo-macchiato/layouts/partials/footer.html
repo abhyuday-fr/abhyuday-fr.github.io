@@ -13,4 +13,9 @@
       <li><a href="{{ "index.xml" | relURL }}">RSS</a></li>
     </ul>
   </div>
+
+  {{ if hugo.IsProduction }}
+  <script data-goatcounter="https://abhyuday.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  {{ end }}
 </footer>
