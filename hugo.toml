@@ -8,19 +8,24 @@ theme = 'hugo-macchiato'
 
 # Top Navigation Menu
 [[menu.main]]
+  name = "Essential Coding Principles"
+  url = "/essential-coding-principles"
+  weight = 1
+
+[[menu.main]]
   name = "Multithreading"
   url = "/multithreading/"
-  weight = 1
+  weight = 2
 
 [[menu.main]]
   name = "Networking"
   url = "/networking/"
-  weight = 2
+  weight = 3
 
 [[menu.main]]
   name = "Memory Allocation"
   url = "/memory-allocation/"
-  weight = 3
+  weight = 4
 
   [params.giscus]
   repo = "abhyuday-fr/abhyuday-fr.github.io"
