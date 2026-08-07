@@ -1,21 +1,23 @@
 <footer class="site-footer">
   <div class="wrap{{ if .Site.Params.wideLayout }} wrap--wide{{ end }} site-footer__inner">
-    <span>&copy; {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}. Built with <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/abhyuday-fr/hugo-macchiato" target="_blank" rel="noopener">Macchiato</a>.</span>
+    <span>&copy; {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}. Built with <a href="https://gohugo.io"
+        target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/abhyuday-fr/hugo-macchiato"
+        target="_blank" rel="noopener">Macchiato</a>.</span>
     <ul class="footer-links">
       {{ range .Site.Menus.footer }}
-        <li><a href="{{ .URL | relLangURL }}"{{ if strings.HasPrefix .URL "http" }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a></li>
+      <li><a href="{{ .URL | relLangURL }}" {{ if strings.HasPrefix .URL "http" }} target="_blank" rel="noopener" {{ end
+          }}>{{ .Name }}</a></li>
       {{ end }}
       {{ with .Site.Params.social }}
-        {{ with .github }}<li><a href="{{ . }}" target="_blank" rel="noopener">GitHub</a></li>{{ end }}
-        {{ with .twitter }}<li><a href="{{ . }}" target="_blank" rel="noopener">Twitter</a></li>{{ end }}
-        {{ with .mastodon }}<li><a href="{{ . }}" target="_blank" rel="noopener me">Mastodon</a></li>{{ end }}
+      {{ with .github }}<li><a href="{{ . }}" target="_blank" rel="noopener">GitHub</a></li>{{ end }}
+      {{ with .twitter }}<li><a href="{{ . }}" target="_blank" rel="noopener">Twitter</a></li>{{ end }}
+      {{ with .mastodon }}<li><a href="{{ . }}" target="_blank" rel="noopener me">Mastodon</a></li>{{ end }}
       {{ end }}
-      <li><a href="{{ "index.xml" | relURL }}">RSS</a></li>
+      <li><a href="{{ " index.xml" | relURL }}">RSS</a></li>
     </ul>
   </div>
 
   {{ if hugo.IsProduction }}
-  <script data-goatcounter="https://abhyuday.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://abhyuday.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   {{ end }}
 </footer>
