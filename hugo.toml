@@ -5,6 +5,7 @@ theme = 'hugo-macchiato'
 
 [params]
   comments = true
+  faviconPack = true
 
 # Top Navigation Menu
 [[menu.main]]
