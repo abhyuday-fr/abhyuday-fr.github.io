@@ -13,19 +13,24 @@ theme = 'hugo-macchiato'
   weight = 1
 
 [[menu.main]]
+  name = "Low-Latency"
+  url = "/low-latency/"
+  weight = 2
+
+[[menu.main]]
   name = "Multithreading"
   url = "/multithreading/"
-  weight = 2
+  weight = 3
 
 [[menu.main]]
   name = "Networking"
   url = "/networking/"
-  weight = 3
+  weight = 4
 
 [[menu.main]]
   name = "Memory Allocation"
   url = "/memory-allocation/"
-  weight = 4
+  weight = 5
 
   [params.giscus]
   repo = "abhyuday-fr/abhyuday-fr.github.io"
