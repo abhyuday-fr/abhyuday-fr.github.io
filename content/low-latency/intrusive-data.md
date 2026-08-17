@@ -2,7 +2,7 @@
 date = '2026-08-17T10:49:05+05:30'
 draft = false
 comments = true
-title = 'Intrusive Data'
+title = 'Intrusive Data Type'
 description = "There are many ways to make data generic in C and C++. There is one peculiar way that I like the most and is also used in Linux Kernel."
 tags = ['cpp', 'coding', 'programming', 'low-latency']
 categories = ['Low-Latency']
@@ -13,7 +13,7 @@ Embedding “dataless” structures into the data type is called intrusive data 
 Now that the data structure is free of data, to get the data back, just offset the address of the struct.
 
 A normal linked list of the data would look like this
-```
+```bash
          ┌──┐       ┌──┐
          │  ▼       │  ▼
 ┌Node──┐ │ ┌Node──┐ │ ┌Node──┐
@@ -31,7 +31,7 @@ A normal linked list of the data would look like this
 
 but an intrusive linked list of all the data would look like
 
-```
+```bash
 ┌Data──┐   ┌Data──┐   ┌Data──┐
 │ …    │   │ …    │   │ …    │
 │┌────┐│   │┌────┐│   │┌────┐│
