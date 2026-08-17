@@ -8,11 +8,11 @@ tags = ['cpp', 'coding', 'programming', 'low-latency']
 categories = ['Low-Latency']
 +++
 
-# What is Type Punning?
+## What is Type Punning?
 Type punning is a low-level programming technique in C and C++ that subverts the type system to reinterpret the bit representation of an object of one type as a different, incompatible type.
 This allows developers to access the underlying binary data directly, bypassing standard type-safe conversions, which is commonly used for performance optimization, serialization, deserialization, and hardware interaction.
 
-# Look at this simple example
+## Look at this simple example
 I'll just explain with the example directly, look at this example
 ```cpp
   #include <iostream>
@@ -45,7 +45,7 @@ Hmmm, so to read it and access properly in our example we might need to somethin
 
 But why doing all that? That's just so useless. And that's right.. or is it? *vsauce music plays*.
 
-# A better example and usage of type punning
+## A better example and usage of type punning
 Now this is where it becomes interesting and usable.
 
 Let's take a look at this struct:
@@ -103,7 +103,7 @@ This prints `8` as we access the second element of the `Entity` by *punning* it 
 
 That's it.
 
-# Real life examples
+## Real life examples
 
 But where is it used? Has anyone or an organisation used it practically in thier systems?
 Yes, here are some of them .
@@ -119,7 +119,7 @@ Yes, here are some of them .
 ## Note 
 Modern C++ (C++20) recommends [std::bit_cast](https://en.cppreference.com/cpp/numeric/bit_cast) or [std::memcpy](https://en.cppreference.com/cpp/string/byte/memcpy) for these tasks to ensure strict aliasing rules are respected while allowing compilers to optimize the resulting code into efficient register-to-register moves.
 
-# Your Views
+## Your Views
 
 Please lemme know if you learnt something new in this blog. Also, if you have seen any other example or *used* type punning in any of your projects to optimize the computation time then also do share with the rest of us :)
 
