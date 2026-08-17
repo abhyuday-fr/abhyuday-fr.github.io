@@ -47,7 +47,7 @@ But to access the data, we need to implement some offset trick, just like in the
 ## `container_of` and the offset trick
 * We know that struct is a blueprint. When you create an object, the compiler reserves a continuous block of memory.
 for eg.
-```
+```cpp
   struct Entry{
     std::string key; // let's say this is 32 bytes
     std::string value; // 32 bytes too
