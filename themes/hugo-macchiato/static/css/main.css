@@ -417,6 +417,24 @@ code { }
 .admonition--danger { border-left-color: var(--red); }
 .admonition--danger .admonition-title { color: var(--red); }
 
+.intro__links {
+  display: flex;
+  gap: 1rem;
+  margin: -0.4rem 0 1.6rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+}
+.intro__links a {
+  color: var(--subtext0);
+  text-decoration: none;
+  border-bottom: 1px solid var(--surface1);
+  padding-bottom: 1px;
+}
+.intro__links a:hover {
+  color: var(--mauve);
+  border-bottom-color: var(--mauve);
+}
+
 /* =========================================================
    Home / list — intro + post cards
    ========================================================= */

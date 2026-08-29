@@ -6,6 +6,10 @@ theme = 'hugo-macchiato'
 [params]
   comments = true
   faviconPack = true
+  description = "C, C++ (17, 20) Linux Systems Programmer and Golang Backend Engineer. I write about low-level tricks, programming principles that I learn and the things I broke and fixed."
+  [params.social]
+    github = "https://github.com/abhyuday-fr"
+    linkedin = "https://www.linkedin.com/in/abhyuday-pundir-826957359"
 
 # Top Navigation Menu
 [[menu.main]]
