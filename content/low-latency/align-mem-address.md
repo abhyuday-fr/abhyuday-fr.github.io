@@ -2,7 +2,7 @@
 date = '2026-09-07T11:11:55+05:30'
 draft = false
 comments = true
-title = 'Strcitly Align Memory Address'
+title = 'Strictly Align Memory Address'
 description = "We can use bitwise operations and tricks to ensure that memory addresses are strictly aligned for performance and hardware safety."
 tags = ['cpp', 'memory', 'low-latency']
 categories = ['Low-Latency']
