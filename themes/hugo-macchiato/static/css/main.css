@@ -723,21 +723,38 @@ code {
 .error-page__code span { color: var(--red); }
 
 /* =========================================================
-   Small screens — stack the TOC, reclaim edge padding
+   Stacked layout (below the 1000px sidebar breakpoint)
+   The TOC is last in the DOM so it can be a right-hand sidebar on desktop;
+   once the grid collapses to one column that would leave it stranded at the
+   very bottom of the article, where a TOC is useless. order: -1 lifts it
+   above the prose, and the height cap keeps a long TOC from burying the
+   article under a wall of links.
    ========================================================= */
-@media (max-width: 640px) {
-  .wrap { max-width: 100%; padding: 0 1.1rem; }
-  .site-main { padding: 1.75rem 0 3rem; }
-
-  /* The sidebar TOC becomes a collapsible-looking block above the prose flow */
+@media (max-width: 999px) {
   .toc {
+    order: -1;
     position: static;
     top: auto;
+    margin-bottom: 0.5rem;
     padding: 0.9rem 1rem;
     border: 1px solid var(--surface0);
     border-radius: 10px;
     background: var(--mantle);
+    max-height: 45vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
+  .toc__title { margin-bottom: 0.4rem; }
+  .toc ul { border-left: none; }
+  .toc a { padding-left: 0.6rem; }
+}
+
+/* =========================================================
+   Small screens — reclaim edge padding
+   ========================================================= */
+@media (max-width: 640px) {
+  .wrap { max-width: 100%; padding: 0 1.1rem; }
+  .site-main { padding: 1.75rem 0 3rem; }
 
   blockquote { padding: 0.2em 1rem; }
   .highlight pre, .content > pre { padding: 0.9rem 1rem; }
