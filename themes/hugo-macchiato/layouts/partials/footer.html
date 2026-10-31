@@ -11,6 +11,7 @@
       {{ with .Site.Params.social }}
       {{ with .github }}<li><a href="{{ . }}" target="_blank" rel="noopener">GitHub</a></li>{{ end }}
       {{ with .twitter }}<li><a href="{{ . }}" target="_blank" rel="noopener">Twitter</a></li>{{ end }}
+      {{ with .x }}<li><a href="{{ . }}" target="_blank" rel="noopener">X</a></li>{{ end }}
       {{ with .mastodon }}<li><a href="{{ . }}" target="_blank" rel="noopener me">Mastodon</a></li>{{ end }}
       {{ end }}
       <li><a href="{{ " index.xml" | relURL }}">RSS</a></li>

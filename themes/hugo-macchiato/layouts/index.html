@@ -1,13 +1,13 @@
 {{ define "main" }}
 <section class="intro">
-  <p class="intro__eyebrow">visitor@{{ .Site.Params.prompt.host | default "blog" }} $ cat about.txt<span class="cursor">&nbsp;</span></p>
+  <p class="intro__eyebrow">~/{{ .Site.Params.prompt.host | default "blog" }} $ whoami<span class="cursor">&nbsp;</span></p>
   <h1>{{ .Site.Params.tagline | default .Site.Title }}</h1>
   {{ with .Site.Params.description }}<p>{{ . }}</p>{{ end }}
   {{ with .Site.Params.social }}
     <p class="intro__links">
       {{ with .github }}<a href="{{ . }}" target="_blank" rel="noopener">GitHub</a>{{ end }}
       {{ with .linkedin }}<a href="{{ . }}" target="_blank" rel="noopener">LinkedIn</a>{{ end }}
-      {{ with .twitter }}<a href="{{ . }}" target="_blank" rel="noopener">Twitter</a>{{ end }}
+      {{ with .x }}<a href="{{ . }}" target="_blank" rel="noopener me">X/Twitter</a>{{ end }}
       {{ with .mastodon }}<a href="{{ . }}" target="_blank" rel="noopener me">Mastodon</a>{{ end }}
     </p>
   {{ end }}
