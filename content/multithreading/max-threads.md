@@ -25,7 +25,7 @@ void idle_worker(std::atomic<bool>& keep_running){
 ```
 
 where `keep_running` is an *atomic* bool value.
-A newly spawned thread runs this loop almost forever but, **most importantnly** we don't want the thread to use 100% of CPU so we put it to sleep. Alternatively we could use `std::this_thread::yield()` but it will still *thrash* the cpu as it simply tells the operating system scheduler: "I am done with my current time slice, let another thread run."
+A newly spawned thread runs this loop almost forever but, **most importantly** we don't want the thread to use 100% of CPU so we put it to sleep. Alternatively we could use `std::this_thread::yield()` but it will still *thrash* the cpu as it simply tells the operating system scheduler: "I am done with my current time slice, let another thread run."
 
 Because we are spawning thousands of threads that are all doing nothing but yielding to each other, the OS scheduler immediately puts them right back into the queue. The CPU is spends 100% of its time frantically context-switching between thousands of active threads.
 

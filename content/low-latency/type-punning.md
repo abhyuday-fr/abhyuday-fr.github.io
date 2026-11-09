@@ -9,10 +9,12 @@ categories = ['Low-Latency']
 +++
 
 ## What is Type Punning?
+
 Type punning is a low-level programming technique in C and C++ that subverts the type system to reinterpret the bit representation of an object of one type as a different, incompatible type.
 This allows developers to access the underlying binary data directly, bypassing standard type-safe conversions, which is commonly used for performance optimization, serialization, deserialization, and hardware interaction.
 
 ## Look at this simple example
+
 I'll just explain with the example directly, look at this example
 ```cpp
   #include <iostream>
@@ -87,7 +89,7 @@ int main(){
 }
 ```
 
-This also prints `4, 8`. we just made an array out of the `Entity`. and `position` is just the pointer poiniting to the struct (its first element), so we can access the elements of it like just any array. Also notice how all the elements of the struct are `int`(same type).
+This also prints 4, 8. We have effectively treated the Entity object's members as an array. The position pointer points to the struct's first member, allowing us to access the members using pointer arithmetic.. Also notice how all the elements of the struct are `int`(same type).
 
 Wanna see something cooler?
 
@@ -105,10 +107,10 @@ That's it.
 
 ## Real life examples
 
-But where is it used? Has anyone or an organisation used it practically in thier systems?
+But where is it used? Has anyone or an organisation used it practically in their systems?
 Yes, here are some of them .
 
-* **Fast Inverse Square Root**: The most famous example is the **Quake III algorithm**, which reinterprets the bit pattern of a float as an int to perform integer arithmetic for an inverse square root. You can see about that in details [here](https://attackofthefanboy.com/articles/the-quake-iii-algorithm-that-defies-math-explained/).
+* **Fast Inverse Square Root**: The most famous example is the **Quake III algorithm**, which reinterprets the bit pattern of a float as an int to perform integer arithmetic for an inverse square root. You can read about that in details [here](https://attackofthefanboy.com/articles/the-quake-iii-algorithm-that-defies-math-explained/).
 
 * **Fast FP Comparison**: Comparing floating-point numbers by reinterpreting them as signed integers (with sign bit adjustment) allows for **branchless** comparison logic, which is faster than standard IEEE 754 comparison operations in tight loops. 
 

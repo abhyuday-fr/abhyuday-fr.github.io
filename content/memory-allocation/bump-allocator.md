@@ -3,7 +3,7 @@ date = '2026-09-30T11:41:46+05:30'
 draft = false
 comments = true
 title = 'Bump Allocator'
-description = "Bump Allocation is the most basic implementation of a memory allocation I, and hopefully you, can/will think of."
+description = "Bump allocation is the most basic memory allocator that I and hopefully you, can think of."
 tags = ['cpp', 'memory', 'leak-free']
 categories = ['Memory Allocation']
 +++

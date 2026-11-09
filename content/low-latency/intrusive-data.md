@@ -79,5 +79,5 @@ This post is a part of Low-Latency Blog category so there must be some advantage
 - I've also used in the Redis like in-memory key-value storage [here](https://github.com/abhyuday-fr/Redis).
 
 ## Try it yourself.
-I made an [Intrusive-HashMap](https://github.com/abhyuday-fr/Low-Level-CPP/tree/main/Intrusive-Hash-Map) where I used the intrusive data type there. You can view that for reference and make something of your own where you use this, wether it be a simple Linked-List program or anything. Btw I didn't add the dynamic rehashing in that yet, I am planning to do so but not getting enough time to touch that right now. If you like, you can contribute in that too :)
+I made an [intrusive hash map](https://github.com/abhyuday-fr/Low-Level-CPP/tree/main/Intrusive-Hash-Map) where I used the intrusive data type there. You can view that for reference and make something of your own where you use this, whether it be a simple Linked-List program or anything. Btw I didn't add the dynamic rehashing in that yet, I am planning to do so but not getting enough time to touch that right now. If you like, you can contribute in that too :)
 No worries I've implemented that in the hashmap I used in my Redis project too so you can take reference from that.

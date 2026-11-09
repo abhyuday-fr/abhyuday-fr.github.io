@@ -68,7 +68,7 @@ By using +, -, and bitwise operations the alignment is calculated in a single CP
 
 This specific bitwise trick is one of the most ubiquitous and famous macros in all of systems programming.
 
-1. **ReinC** :  I've used in the [Reinforcement Library](https://github.com/abhyuday-fr/Low-Level/blob/main/ReinC/arena.c) I made in C at approx line `34` to algin the memory addresses in the arena allocator I made in it.
+1. **ReinC** :  I've used in the [Reinforcement Library](https://github.com/abhyuday-fr/Low-Level/blob/main/ReinC/arena.c) I made in C at approx line `34` to align the memory addresses in the arena allocator I made in it.
 You can just do `go to definition` to see the macros
 
 2. **Linux Kernel** : The [Linux kernel](https://github.com/torvalds/linux/blob/master/include/vdso/align.h) uses this exact logic everywhere from memory management and network packet routing to file system drivers. In the kernel source code, it is primarily defined in include/linux/align.h (and historically in kernel.h). The kernel breaks it down into a few nested macros to handle type safety, but the underlying math is identical

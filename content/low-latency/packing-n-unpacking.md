@@ -71,7 +71,7 @@ and
   This results with `0x7d0` which is in fact our `second` variable ;)
 
 ## Real-life examples where this is used
-1. **Concurrent open ports scanner (with epoll)** : I myself have used this trick at around line 113 [here](https://github.com/abhyuday-fr/Low-Level-CPP/blob/main/knocker/knocker-epoll.cc) to pack file descriptor and port together so I can use them later on around line 130.
+1. **Concurrent open ports scanner (with epoll)** : I myself have used this trick at around line 113 [here](https://github.com/abhyuday-fr/Knocker/blob/main/knocker-epoll.cc) to pack file descriptor and port together so I can use them later on around line 130.
 
 2. **Linux Kernel's Device Numbers (dev_t)** : In this [code](https://github.com/torvalds/linux/blob/master/include/linux/kdev_t.h) around line 10, the Major and Minor numbers are stored together in `dev_t` but they are 12 and 20 bits respectively.
 
