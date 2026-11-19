@@ -38,6 +38,11 @@ theme = 'hugo-macchiato'
   url = "/memory-allocation/"
   weight = 5
 
+[[menu.main]]
+  name = "Backend"
+  url = "/backend/"
+  weight = 6
+
   [params.giscus]
   repo = "abhyuday-fr/abhyuday-fr.github.io"
   repoId = "R_kgDOTu5T_w"
