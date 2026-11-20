@@ -13,36 +13,37 @@ theme = 'hugo-macchiato'
     x = "https://x.com/izflawless"
 
 # Top Navigation Menu
-[[menu.main]]
-  name = "Essential Coding Principles"
-  url = "/essential-coding-principles"
-  weight = 1
 
 [[menu.main]]
   name = "Low-Latency"
   url = "/low-latency/"
-  weight = 2
+  weight = 1
 
 [[menu.main]]
   name = "Multithreading"
   url = "/multithreading/"
-  weight = 3
+  weight = 2
 
 [[menu.main]]
   name = "Networking"
   url = "/networking/"
-  weight = 4
+  weight = 3
 
 [[menu.main]]
   name = "Memory Allocation"
   url = "/memory-allocation/"
-  weight = 5
+  weight = 4
 
 [[menu.main]]
   name = "Backend"
   url = "/backend/"
-  weight = 6
+  weight = 5
 
+[[menu.main]]
+  name = "Essential Coding Principles"
+  url = "/essential-coding-principles"
+  weight = 6
+  
   [params.giscus]
   repo = "abhyuday-fr/abhyuday-fr.github.io"
   repoId = "R_kgDOTu5T_w"
