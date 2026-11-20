@@ -30,6 +30,64 @@
     });
   }
 
+  /* ---------- Nav overflow ("⋯" menu) ---------- */
+  (function () {
+    var nav = document.getElementById("site-nav");
+    var burger = document.getElementById("nav-toggle");
+    var themeBtn = document.getElementById("theme-toggle");
+    if (!nav) return;
+    var inner = nav.closest(".site-header__inner");
+    var brand = inner ? inner.querySelector(".brand") : null;
+    if (!inner || !brand) return;
+
+    var links = Array.prototype.slice.call(nav.querySelectorAll("a"));
+
+    var more = document.createElement("div");
+    more.className = "nav-more";
+    more.hidden = true;
+    more.innerHTML =
+      '<button type="button" class="nav-more__btn" aria-label="More sections" aria-expanded="false">&#8943;</button>' +
+      '<div class="nav-more__menu"></div>';
+    nav.appendChild(more);
+    var btn = more.querySelector(".nav-more__btn");
+    var menu = more.querySelector(".nav-more__menu");
+
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = more.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", function () {
+      more.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+    });
+
+    function layout() {
+      // reset: everything back in the bar
+      links.forEach(function (a) { nav.insertBefore(a, more); });
+      more.hidden = true;
+      more.classList.remove("is-open", "has-current");
+
+      if (window.matchMedia("(max-width: 640px)").matches) return; // hamburger handles mobile
+
+      var avail = inner.clientWidth - brand.offsetWidth
+        - (themeBtn ? themeBtn.offsetWidth : 0) - 48;
+
+      var i = links.length;
+      while (nav.offsetWidth > avail && i > 0) {
+        more.hidden = false;               // reserve room for the ⋯ button
+        i--;
+        menu.insertBefore(links[i], menu.firstChild);
+      }
+      if (menu.querySelector('[aria-current="page"]')) more.classList.add("has-current");
+    }
+
+    layout();
+    var t;
+    window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(layout, 80); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  })();
+
   /* ---------- Reading progress bar ---------- */
   var progress = document.getElementById("reading-progress");
   if (progress) {
